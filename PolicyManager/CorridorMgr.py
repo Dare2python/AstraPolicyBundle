@@ -62,12 +62,12 @@ def initYamlFile(cName):
         ## use the existing file
         corridorPolicyYamlFile = config['files']['CORRIDOR_FILE_DIRECTORY'] + '/' + cName + '.yaml'
         with open(corridorPolicyYamlFile) as policyYamlFile:
-            corridor = yaml.load(policyYamlFile)
+            l_corridor = yaml.load(policyYamlFile)
         
         # print ('corridorDirPath.exists()',yaml.dump(corridor, sys.stdout))
         ## If policy is there this is  nothing, since these is an ordered dict, and it cleans it up    
         ## Do not Need to check if the files already has a policy object
-        corridor['data'].insert(len(corridor['data']), key='policy', value={'astra': {'priority': 0, 'rules': []}})
+        l_corridor['data'].insert(len(l_corridor['data']), key='policy', value={'astra': {'priority': 0, 'rules': []}})
     else:
         # # Brand new file
         #  theoretically these should not be used and its creating a default policy of rules if we
@@ -76,20 +76,20 @@ def initYamlFile(cName):
         #  and the rules above as well.
         corridorPolicyYamlFile = config['files']['corridorPolicyYamlFile']
         with open(corridorPolicyYamlFile) as policyYamlFile:
-            corridor = yaml.load(policyYamlFile)
+            l_corridor = yaml.load(policyYamlFile)
             
         # Give the Yaml file a name
-        corridor['metadata']['name'] = cName
+        l_corridor['metadata']['name'] = cName
         
         # Deal with the corridor  number 
-        corridor['metadata']['labels']['corridor'] = getCorridorNumber(cName)
+        l_corridor['metadata']['labels']['corridor'] = getCorridorNumber(cName)
         
         print('!corridorDirPath.exists()')
-        print(yaml.dump(corridor, sys.stdout))
+        print(yaml.dump(l_corridor, sys.stdout))
         
     policyYamlFile.close()  
     
-    return corridor
+    return l_corridor
 
 
 ## BlackList file that need Site Level replacement
@@ -133,9 +133,9 @@ def loadConfig(configYamlFile):
     ## Using a Yaml config file
     ## Awkward accessing the values, there must be a better mechanism.
     with open(configYamlFile, 'r') as configfile:
-        config = yaml.load(configfile)
+        l_config = yaml.load(configfile)
     configfile.close()
-    return config
+    return l_config
 
 
 if __name__ == '__main__':
