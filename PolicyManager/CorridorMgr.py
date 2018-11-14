@@ -104,23 +104,32 @@ def addAstraPolicyRules(c, cName, cPolicyRepoDirName):
 
         for afile in glob.glob(cPolicyRepoDirName + '/*.yaml'):
             
-            with open(afile, "r") as policyFile:
-                ## Remove the ---
-                policyFile.readline()
-                
-                ## Need to change  the file contents so that
-                ## /n are newlines, and its not a enclosed in "
-                cleanString = ''
-                for line in policyFile.readlines():
-                    cleanString += ''.join(line.replace('"', '').replace('\\', ''))
-
-                if not isSiteLevelPolicy(cleanString):
-                    c['data']['policy'][config['intentions']['corridorPolicyName']]['rules'].append(cleanString)
+            # with open(afile, "r") as policyFile:
+            #     ## Remove the ---
+            #     policyFile.readline()
+            #
+            #     ## Need to change  the file contents so that
+            #     ## /n are newlines, and its not a enclosed in "
+            #     cleanString = ''
+            #     for line in policyFile.readlines():
+            #         cleanString += ''.join(line.replace('"', '').replace('\\', ''))
+            #
+            #     if not isSiteLevelPolicy(cleanString):
+            #         c['data']['policy'][config['intentions']['corridorPolicyName']]['rules'].append(cleanString)
+            #     else:
+            #         ## Not sure what to do with  them if Any exists
+            #         ##
+            #         pass
+            # policyFile.close()
+            with open(afile) as policyYamlFile:
+                policy = yaml.load(policyYamlFile)
+                if not isSiteLevelPolicy(policy):
+                    c['data']['policy'][config['intentions']['corridorPolicyName']]['rules'].append(policy)
                 else:
                     ## Not sure what to do with  them if Any exists
                     ##
                     pass
-            policyFile.close()
+
         
         ## Needs this values for the dump to add the YAML file separators.
         yaml.explicit_start = True
