@@ -40,8 +40,8 @@ intentions:
   ## List of Repos that represent corridors
   corridorNames: {'corridor1','corridor2','corridor3','corridor4','production'}
   
-  ## What isa considered a Baremetal YAML File - the schema
+  ## What is considered as Baremetal YAML File - the schema
   baremetalSchema: 'drydock/BaremetalNode/v1'
   
-  ## What interfaces we care for in teh Baremetal. Its just OAM but make it a list
+  ## What interfaces we care for in the Baremetal. Its just OAM but make it a list
   baremetalInterfaces: {'oam'}
