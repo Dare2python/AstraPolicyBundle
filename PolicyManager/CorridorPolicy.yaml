@@ -1,0 +1,21 @@
+---
+schema: nc/CorridorConfig/v1
+metadata:
+  schema: metadata/Document/v1
+  name: ANAME
+  layeringDefinition:
+    abstract: false
+    layer: global
+  labels:
+    corridor: '1'
+  storagePolicy: cleartext
+data:
+    policy:
+        default:
+            priority: 0
+            rules: []
+    
+        astra:
+            priority: 1
+            rules: []
+...

@@ -1,0 +1,89 @@
+---
+schema: deckhand/DataSchema/v1
+metadata:
+  schema: metadata/Control/v1
+  name: nc/CorridorConfig/v1
+data:
+  $schema: http://json-schema.org/schema#
+
+  type: object
+  properties:
+    artifactory:
+      properties:
+        hostnames:
+          type: object
+          properties:
+            artifacts:
+              type: string
+            docker-open:
+              type: string
+            docker:
+              type: string
+
+          additionalProperties: false
+          required:
+            - artifacts
+            - docker-open
+            - docker
+
+      additionalProperties: false
+      required:
+        - hostnames
+
+    gstools:
+      type: object
+      properties:
+        collecthost:
+          type: string
+        qclient:
+          type: string
+        uamroles:
+          type: string
+
+      additionalProperties: false
+      required:
+        - collecthost
+        - qclient
+        - uamroles
+
+    ldap:
+      type: object
+      properties:
+        auth_path:
+          type: string
+        common_name:
+          type: string
+        domain:
+          type: string
+        fqdn:
+          type: string
+        subdomain:
+          type: string
+
+      additionalProperties: false
+      required:
+        - auth_path
+        - common_name
+        - domain
+        - fqdn
+        - subdomain
+    smtp:
+      type: object
+      properties:
+        relay:
+          type: string
+
+      additionalProperties: false
+      required:
+        - relay
+
+    policy:
+      type: object
+      additionalProperties: true
+
+  additionalProperties: false
+  required:
+    - gstools
+    - ldap
+    - smtp
+...

@@ -1,0 +1,9 @@
+apiVersion: projectcalico.org/v3
+kind: HostEndpoint
+metadata:
+  name: some.name
+  labels: {}
+spec:
+  interfaceName: some.name
+  node: some.name
+  expectedIPs: []

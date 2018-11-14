@@ -1,0 +1,47 @@
+files:
+  ## Location for local clone of policy source repo 
+  ## Probable can use the GitPython to pull directly from the repo instead of relying on a clone
+  GIT_REPO_PATH: '/Users/skovaleff/a/test'
+
+  ## Location of the local clone repo where we generate the CorridorPolicy files
+  CORRIDOR_FILE_DIRECTORY: '/Users/skovaleff/a/aic-clcp-manifests/global/v4.0/corridors'
+    
+  ## Location of the directory where we will store site level policy artifacts 
+  POLICY_SITE_FILE_DIRECTORY: '/Users/skovaleff/a/aic-clcp-site-manifests/site/SITENAME/software/charts/kubernetes/container-networking/'
+
+  ## Location of the directory where profiles might exists at the site level 
+  PROFILES_SITE_DIRECTORY: '/Users/skovaleff/a/aic-clcp-site-manifests/site/SITENAME/profiles/host'
+
+  ## Location of the directory where profiles might exists at the site level 
+  PROFILES_GLOBAL_DIRECTORY: '/Users/skovaleff/a/aic-clcp-manifests/global/v4.0/profiles/host'
+
+
+  ## Location of the directory where we will store site level policy artifacts 
+  POLICIES_SITE_FILE: 'policies.yaml'
+
+  
+  ## Location of the baremetal YAML documents    
+  BAREMETAL_SITE_FILE_DIRECTORY: '/Users/skovaleff/a/aic-clcp-site-manifests/site/SITENAME/baremetal'
+  
+    
+  ## Based Format for Corridor Policy file 
+  corridorPolicyYamlFile: '/Users/skovaleff/a/test/AstraPolicyBundle/PolicyManager/CorridorPolicy.yaml'
+  
+  ## Based Format for HostEndpoint  file 
+  hostendpointYamlFile: '/Users/skovaleff/a/test/AstraPolicyBundle/PolicyManager/HostEndpoint.yaml'
+  
+   ## Based Format for Site Level Policy file 
+  policiesYamlFile: '/Users/skovaleff/a/test/AstraPolicyBundle/PolicyManager/Policy.yaml'
+
+intentions:
+  ## Name of the Policy where we expect to deliver the Network Policy rules
+  corridorPolicyName: 'astra'
+  
+  ## List of Repos that represent corridors
+  corridorNames: {'corridor1','corridor2','corridor3','corridor4','production'}
+  
+  ## What isa considered a Barmeetal YAML File - the schema
+  baremetalSchema: 'drydock/BaremetalNode/v1'
+  
+  ## What iinterfaces we care for in teh Baremetal. Its just OAM but make it a list
+  baremetalInterfaces: {'oam'}
