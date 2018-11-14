@@ -35,14 +35,15 @@ from ruamel.yaml import YAML
 yaml = YAML()
 
 
-def getCorridorNumber (corridorName):
+def getCorridorNumber(corridorName):
     if (corridorName is None):
         return '0'
     elif (corridorName == 'production'):
         return '5'
     else:
         return str(corridorName[-1])
-    
+
+
 def getTargetCorridorName(corridorRepoName):
     if (corridorRepoName is None):
         return 'corridor-1'
@@ -50,7 +51,8 @@ def getTargetCorridorName(corridorRepoName):
         return 'production'
     else:
         return corridorRepoName[0:len(corridorRepoName)-1] + '-' + corridorRepoName[-1]
-    
+
+
 def initYamlFile(corridorName):
     ## Check if it exists 
     corridorYamlFile = Path(config['files']['CORRIDOR_FILE_DIRECTORY']+'/'+corridorName+'.yaml')
@@ -88,11 +90,12 @@ def initYamlFile(corridorName):
     
     return corridor
 
-#
+
 ## BlackList file that need Site Level replacement
 ### @@TODO need to identify if tehre is anything and what the criteria is
 def isSiteLevelPolicy(policyAsString):
     return False
+
 
 def addAstraPolicyRules(corridorName, corridorPolicyRepoDirName) :
     # Prepare the Output File
@@ -132,7 +135,8 @@ def loadConfig(configYamlFile):
         config = yaml.load(configfile)
     configfile.close()
     return config
-    
+
+
 if __name__ == '__main__':
 
     config = loadConfig("config.yaml")
@@ -149,6 +153,3 @@ if __name__ == '__main__':
         corridor = initYamlFile(corridorName)
  
         addAstraPolicyRules(corridorName, corridorPolicyRepoDirName[0])
-
-
-        

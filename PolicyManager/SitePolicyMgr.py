@@ -18,7 +18,6 @@ yaml = ruamel.yaml.YAML()
 sitename = ''
 
 
-
 class NoAliasDumper(ruamel.yaml.Representer):
     def ignore_aliases(self, data):
         # type: (Any) -> bool
