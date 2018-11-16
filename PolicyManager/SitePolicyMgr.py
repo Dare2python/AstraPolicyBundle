@@ -6,7 +6,8 @@ Created on Nov 5, 2018
 
 import glob
 import os
-import sys, getopt
+import sys
+import getopt
 from pathlib import Path
 
 # # This uses ordereddict that preserve YAML order.
@@ -36,17 +37,16 @@ def loadConfig(configYamlFile):
     # # Awkward accessing teh values, there must be a better mechanism.    
     with open(configYamlFile, 'r') as configfile:
         config = yaml.load(configfile)
-    configfile.close()
     return config
 
 
-def useSite(aString, sitename):
-    return aString.replace("SITENAME", sitename)
+def useSite(aString, l_sitename):
+    return aString.replace("SITENAME", l_sitename)
 
 
-def getBaremetal(sitename, config):
+def getBaremetal(l_sitename, l_config):
     # get HostEndpoint YAML file
-    baremetalSiteDir = useSite(config['files']['BAREMETAL_SITE_FILE_DIRECTORY'], sitename)
+    baremetalSiteDir = useSite(l_config['files']['BAREMETAL_SITE_FILE_DIRECTORY'], l_sitename)
 
     baremetalYamlList = []
     for baremetalFile in glob.glob(baremetalSiteDir + "/*.yaml"):
@@ -65,7 +65,6 @@ def getFromYamlFile(templateFile):
 
     with open(templateYamlFile) as aYamlFile:
         aYaml = yaml.load(aYamlFile)
-    aYamlFile.close()
 
     return aYaml
 
@@ -76,7 +75,6 @@ def getFromYamlsFiles(templateFile):
     aYamlList = []
     with open(templateYamlFile) as aYamlFile:
         aYamlList.append(list(yaml.load_all(aYamlFile)))
-    aYamlFile.close()
 
     return aYamlList
 
@@ -91,9 +89,9 @@ def getFromYamlsFiles(templateFile):
 #
 # Then within teh profile
 #     Iterate through dtaa.interfaces , and see if teh networkName is in the list of networks for an interface.
-def getInterfaceName(sitename, config, hostProfile, networkName):
+def getInterfaceName(l_sitename, config, hostProfile, networkName):
     # get HostEndpoint YAML file
-    siteProfileDir = useSite(config['files']['PROFILES_SITE_DIRECTORY'], sitename)
+    siteProfileDir = useSite(config['files']['PROFILES_SITE_DIRECTORY'], l_sitename)
     #
     # At the site level there might be a single file with multiple yamls
     for profileFile in glob.glob(siteProfileDir + "/*.yaml"):
@@ -105,7 +103,7 @@ def getInterfaceName(sitename, config, hostProfile, networkName):
                         return interface
 
     # At the global level the file will be a single one using the name of the hostprofile
-    globalProfileDir = useSite(config['files']['PROFILES_GLOBAL_DIRECTORY'], sitename)
+    globalProfileDir = useSite(config['files']['PROFILES_GLOBAL_DIRECTORY'], l_sitename)
     for profileFile in glob.glob(globalProfileDir + "/" + hostProfile + ".yaml"):
         profile = getFromYamlFile(profileFile)
         for interface in profile['data']['interfaces']:
@@ -132,8 +130,8 @@ def addLabels(hostendpoint, baremetalTags, intfName):
     hostendpoint['metadata']['labels'].insert(len(hostendpoint['metadata']['labels']), 'intf-alias', intfName)
 
 
-def getHostEndpointDir(sitename, config):
-    hostendpointDir = useSite(config['files']['POLICY_SITE_FILE_DIRECTORY'], sitename)
+def getHostEndpointDir(l_sitename, config):
+    hostendpointDir = useSite(config['files']['POLICY_SITE_FILE_DIRECTORY'], l_sitename)
     try:
         heDirPath = Path(hostendpointDir)
         if not heDirPath.exists() or not heDirPath.is_dir():
