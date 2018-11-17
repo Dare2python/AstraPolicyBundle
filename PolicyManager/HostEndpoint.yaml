@@ -1,3 +1,4 @@
+---
 apiVersion: projectcalico.org/v3
 kind: HostEndpoint
 metadata:
@@ -7,3 +8,4 @@ spec:
   interfaceName: some.name
   node: some.name
   expectedIPs: []
+...

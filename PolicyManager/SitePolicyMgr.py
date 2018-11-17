@@ -54,7 +54,6 @@ def getBaremetal(l_sitename, l_config):
         # Each file can contain multiple entries
         with open(baremetalFile, "r") as bmFile:
             baremetalYamlList.append(list(yaml.load_all(bmFile)))
-        bmFile.close()
 
     return baremetalYamlList
 
@@ -87,8 +86,8 @@ def getFromYamlsFiles(templateFile):
 #     or 
 #    Global level aic-clcp-manifests/global/v4.0/profiles/host
 #
-# Then within teh profile
-#     Iterate through dtaa.interfaces , and see if teh networkName is in the list of networks for an interface.
+# Then within the profile
+#     Iterate through data.interfaces, and see if the networkName is in the list of networks for an interface.
 def getInterfaceName(l_sitename, config, hostProfile, networkName):
     # get HostEndpoint YAML file
     siteProfileDir = useSite(config['files']['PROFILES_SITE_DIRECTORY'], l_sitename)
@@ -155,8 +154,10 @@ def main(argv):
             sys.exit()
         elif opt in ("-s", "--site"):
             sitename = arg
-
+# No policy template file atm - commented out for now
+    # generated sample based on re-engineering
     policies = getFromYamlFile(config['files']['policiesYamlFile'])
+
     hostendpoint = getFromYamlFile(config['files']['hostendpointYamlFile'])
 
     # yaml.dump(hostendpoint, sys.stdout)
@@ -176,7 +177,7 @@ def main(argv):
     with open(hostendpointDir + '/' + config['files']['POLICIES_SITE_FILE'], 'w') as policiesFile:
         baremetalFileSet = getBaremetal(sitename, config)
 
-        # Lets put all teh HostEnd points in a single file
+        # Lets put all the HostEnd points in a single file
         #
         # For some reason I have a list of lists at this point
         # rules=[]

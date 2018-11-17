@@ -1,0 +1,20 @@
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: ANAME
+spec:
+  order: 45
+  selector: {}
+  egress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      nets:
+      - 199.74.64.54/32
+      ports:
+      - 8443
+  doNotTrack: false
+  preDNAT: false
+  applyOnForward: false
+...
