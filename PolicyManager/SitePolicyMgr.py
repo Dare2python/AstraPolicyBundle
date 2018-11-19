@@ -154,11 +154,10 @@ def main(argv):
             sys.exit()
         elif opt in ("-s", "--site"):
             sitename = arg
-# No policy template file atm - commented out for now
-    # generated sample based on re-engineering
+
+    # There is the Policy.yaml now
     policies = getFromYamlFile(config['files']['policiesYamlFile'])
 
-    hostendpoint = getFromYamlFile(config['files']['hostendpointYamlFile'])
 
     # yaml.dump(hostendpoint, sys.stdout)
 
@@ -184,14 +183,15 @@ def main(argv):
         for baremetalFiles in baremetalFileSet:
             for baremetalFile in baremetalFiles:
                 if baremetalFile['schema'] == config['intentions']['baremetalSchema']:
-                    # print('name', baremetalFile['metadata']['name'])
+                    print('name', baremetalFile['metadata']['name'])
+                    hostendpoint = getFromYamlFile(config['files']['hostendpointYamlFile'])
 
                     for networkPair in baremetalFile['data']['addressing']:
                         if networkPair['network'] in config['intentions']['baremetalInterfaces']:
-                            # print('host_profile',baremetalFile['data']['host_profile'])
+                            print('host_profile',baremetalFile['data']['host_profile'])
                             intfName = getInterfaceName(sitename, config, baremetalFile['data']['host_profile'],
                                                         networkPair['network'])
-                            # print('addressing', 'network',networkPair['network'],'address',networkPair['address'])
+                            print('addressing', 'network', networkPair['network'], 'address', networkPair['address'])
 
                             # name of the Artifact is a Convention hostname-interfaceName
                             hostendpoint['metadata']['name'] = baremetalFile['metadata']['name'] + '-' + networkPair[
@@ -208,12 +208,12 @@ def main(argv):
 
                             # pos = len(policies['data']['policy']['hostendpoints']['rules'])
                             # rules.append(hostendpoint)
-                            # yaml.dump(hostendpoint, sys.stdout)
+                            yaml.dump(hostendpoint, sys.stdout)
                             policies['data']['policy']['hostendpoints']['rules'].append(hostendpoint)
                             # policies['data']['policy']['hostendpoints']['rules'][hostendpoint['spec']['node']]
                             # = hostendpoint
                             # yaml.Representer = NoAliasDumper
-                            # yaml.dump(policies, sys.stdout)
+                            yaml.dump(policies, sys.stdout)
 
         yaml.explicit_start = True
         yaml.explicit_end = True
