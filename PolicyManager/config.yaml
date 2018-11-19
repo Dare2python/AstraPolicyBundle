@@ -43,5 +43,6 @@ intentions:
   ## What is considered as Baremetal YAML File - the schema
   baremetalSchema: 'drydock/BaremetalNode/v1'
   
-  ## What interfaces we care for in the Baremetal. Its just OAM but make it a list
-  baremetalInterfaces: {'oam'}
+  ## What interfaces we care for in the Baremetal. Its just OAM
+  # sk607s: I drop "but make it a list" because it was OrderedDict and we need substring checking
+  baremetalInterfaces: 'oam'

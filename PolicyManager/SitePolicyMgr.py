@@ -187,7 +187,19 @@ def main(argv):
                     hostendpoint = getFromYamlFile(config['files']['hostendpointYamlFile'])
 
                     for networkPair in baremetalFile['data']['addressing']:
-                        if networkPair['network'] in config['intentions']['baremetalInterfaces']:
+                        # if networkPair['network'] in config['intentions']['baremetalInterfaces']:
+                        # Original condition above works only for 5ec-seaworthy
+                        # Here is we need to compromise
+                        # 1) original design supports several "Baremetal" networks
+                        # via AstraPolicyBundle/PolicyManager/config.yaml:46
+                        # What interfaces we care for in the Baremetal. Its just OAM but make it a list
+                        # baremetalInterfaces: {'oam'}
+                        # BUT it assumes the whole network name is 'oam' which is NOT true for all sites
+                        # 2) I decided to drop the support of several Baremetal networks
+                        # the US is all about oam (vlan 42)
+                        # So I am checking if the first baremetal network from the config ('oam')
+                        # is inside the name of network like 'rack06_oam' or 'rack07_oam'
+                        if config['intentions']['baremetalInterfaces'] in networkPair['network']:  # check substring
                             print('host_profile',baremetalFile['data']['host_profile'])
                             intfName = getInterfaceName(sitename, config, baremetalFile['data']['host_profile'],
                                                         networkPair['network'])
