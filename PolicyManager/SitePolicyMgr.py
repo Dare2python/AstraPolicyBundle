@@ -158,6 +158,9 @@ def main(argv):
     # There is the Policy.yaml now
     policies = getFromYamlFile(config['files']['policiesYamlFile'])
 
+    # fix ANAME in the template Policy.yaml
+    policies['metadata']['name'] = sitename
+
 
     # yaml.dump(hostendpoint, sys.stdout)
 
