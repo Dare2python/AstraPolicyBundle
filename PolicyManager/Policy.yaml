@@ -1,20 +1,21 @@
 ---
-apiVersion: projectcalico.org/v3
-kind: NetworkPolicy
+schema: nc/Policy/v1
 metadata:
+  schema: metadata/Document/v1
   name: ANAME
-spec:
-  order: 45
-  selector: {}
-  egress:
-  - action: Allow
-    protocol: TCP
-    destination:
-      nets:
-      - 199.74.64.54/32
-      ports:
-      - 8443
-  doNotTrack: false
-  preDNAT: false
-  applyOnForward: false
+  layeringDefinition:
+    abstract: false
+    layer: global
+  labels:
+    corridor: '1'
+  storagePolicy: cleartext
+data:
+    policy:
+        sitelevel:
+            priority: 5
+            rules: []
+    
+        hostendpoints:
+            priority: 9
+            rules: []
 ...
