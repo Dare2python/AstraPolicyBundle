@@ -16,7 +16,7 @@ import ruamel.yaml
 from ruamel.yaml.compat import text_type, binary_type
 
 yaml = ruamel.yaml.YAML()
-sitename = ''
+# sitename = ''
 
 
 class NoAliasDumper(ruamel.yaml.Representer):
@@ -141,6 +141,7 @@ def getHostEndpointDir(l_sitename, config):
 
 
 def main(argv):
+    print("argv:", argv)
     config = loadConfig("config.yaml")
 
     try:
@@ -161,7 +162,6 @@ def main(argv):
     # fix ANAME in the template Policy.yaml
     policies['metadata']['name'] = sitename
 
-
     # yaml.dump(hostendpoint, sys.stdout)
 
     """
@@ -176,7 +176,7 @@ def main(argv):
     """
     hostendpointDir = getHostEndpointDir(sitename, config)
 
-    with open(hostendpointDir + '/' + config['files']['POLICIES_SITE_FILE'], 'w') as policiesFile:
+    with open(hostendpointDir + config['files']['POLICIES_SITE_FILE'], 'w') as policiesFile:
         baremetalFileSet = getBaremetal(sitename, config)
 
         # Lets put all the HostEnd points in a single file
