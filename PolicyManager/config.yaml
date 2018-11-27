@@ -36,7 +36,14 @@ files:
 intentions:
   ## Name of the Policy where we expect to deliver the Network Policy rules
   corridorPolicyName: 'astra'
-  
+
+  ## Names of the Site level policies to be excluded from global Corridor
+  siteLevelPolicies:
+    - 'nc1-0-corridor1-kvm-hosts-ingress'
+    - 'nc1-0-corridor2-kvm-hosts-ingress'
+    - 'nc1-0-corridor3-kvm-hosts-ingress'
+    - 'nc1-0-corridor4-kvm-hosts-ingress'
+
   ## List of Repos that represent corridors
   corridorNames: {'corridor1','corridor2','corridor3','corridor4','production'}
   

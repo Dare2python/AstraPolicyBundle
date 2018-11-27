@@ -94,24 +94,33 @@ def initYamlFile(cName):
 
 ## BlackList file that need Site Level replacement
 ### @@TODO need to identify if there is anything and what the criteria is
-def isSiteLevelPolicy(policyAsString):
+# sk607s: working with assumption
+# 1) Policies are known by name
+# 2) the only known name is nc1-0-corridor4-kvm-hosts-ingress in the config
+def isSiteLevelPolicy(policy):
+    for black in config['intentions']['siteLevelPolicies']:
+        if black == policy['metadata']['name']:
+            return True
     return False
 
 
 def addAstraPolicyRules(c, cName, cPolicyRepoDirName):
     # Prepare the Output File
     with open(config['files']['CORRIDOR_FILE_DIRECTORY']+'/'+cName+'.yaml', 'w') as corridorFile:
+        print("\nCorridor: ", corridorFile.name)
 
-        for afile in glob.glob(cPolicyRepoDirName + '/*.yaml'):
-            
-            with open(afile) as policyYamlFile:
+        for aFile in glob.glob(cPolicyRepoDirName + '/*.yaml'):
+            print("  Policy: ", aFile)
+            with open(aFile) as policyYamlFile:
                 policy = yaml.load(policyYamlFile)
                 if not isSiteLevelPolicy(policy):
                     c['data']['policy'][config['intentions']['corridorPolicyName']]['rules'].append(policy)
                 else:
                     ## Not sure what to do with  them if Any exists
                     ##
-                    pass
+                    # sk607s: just log atm
+                    print("Site level Policy:", policyYamlFile.name)
+                    #pass
 
         
         ## Needs this values for the dump to add the YAML file separators.
