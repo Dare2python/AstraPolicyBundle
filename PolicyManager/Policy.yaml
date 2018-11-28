@@ -5,7 +5,7 @@ metadata:
   name: ANAME
   layeringDefinition:
     abstract: false
-    layer: global
+    layer: site
   labels:
     corridor: '1'
   storagePolicy: cleartext
