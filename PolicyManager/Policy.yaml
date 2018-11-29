@@ -6,8 +6,6 @@ metadata:
   layeringDefinition:
     abstract: false
     layer: site
-  labels:
-    corridor: '1'
   storagePolicy: cleartext
 data:
     policy:
