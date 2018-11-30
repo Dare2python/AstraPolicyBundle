@@ -160,7 +160,11 @@ def main(argv):
     policies = getFromYamlFile(config['files']['policiesYamlFile'])
 
     # fix ANAME in the template Policy.yaml
-    policies['metadata']['name'] = sitename
+    # policies['metadata']['name'] = sitename
+    # it looks like it's easier to address the file for substitutions
+    # if it has the same name for all sites
+    # so comment this and fix the template
+    # to be "site-policy" according to Rodolfo example
 
     # yaml.dump(hostendpoint, sys.stdout)
 
