@@ -2,10 +2,16 @@
 schema: nc/Policy/v1
 metadata:
   schema: metadata/Document/v1
+  replacement: true
   name: site-policy
   layeringDefinition:
     abstract: false
     layer: site
+    parentSelector:
+      name: site-policy-global
+    actions:
+      - method: merge
+        path: .
   storagePolicy: cleartext
 data:
     policy:
