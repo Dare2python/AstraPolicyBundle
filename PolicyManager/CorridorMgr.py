@@ -55,12 +55,12 @@ def getTargetCorridorName(cRepoName):
 
 def initYamlFile(cName):
     ## Check if it exists 
-    corridorYamlFile = Path(config['files']['CORRIDOR_FILE_DIRECTORY'] + '/' + cName + '.yaml')
+    corridorYamlFile = Path(config['files']['CORRIDOR_FILE_DIRECTORY'] + '/networkpolicies-' + cName + '.yaml')
     corridorPolicyYamlFile = None
     if corridorYamlFile.exists() and corridorYamlFile.is_file():
     
         ## use the existing file
-        corridorPolicyYamlFile = config['files']['CORRIDOR_FILE_DIRECTORY'] + '/' + cName + '.yaml'
+        corridorPolicyYamlFile = config['files']['CORRIDOR_FILE_DIRECTORY'] + '/networkpolicies-' + cName + '.yaml'
         with open(corridorPolicyYamlFile) as policyYamlFile:
             l_corridor = yaml.load(policyYamlFile)
         
@@ -74,18 +74,18 @@ def initYamlFile(cName):
         #  decide on using it instead # of the Calico failsafe rules
         #  In that case we need to add the placeholder
         #  and the rules above as well.
-        corridorPolicyYamlFile = config['files']['corridorPolicyYamlFile']
-        with open(corridorPolicyYamlFile) as policyYamlFile:
-            l_corridor = yaml.load(policyYamlFile)
+        # corridorPolicyYamlFile = config['files']['corridorPolicyYamlFile']
+        # with open(corridorPolicyYamlFile) as policyYamlFile:
+        #    l_corridor = yaml.load(policyYamlFile)
             
         # Give the Yaml file a name
-        l_corridor['metadata']['name'] = cName
+        # l_corridor['metadata']['name'] = cName
         
         # Deal with the corridor  number 
-        l_corridor['metadata']['labels']['corridor'] = getCorridorNumber(cName)
+        # l_corridor['metadata']['labels']['corridor'] = getCorridorNumber(cName)
         
         print('!corridorDirPath.exists()')
-        print(yaml.dump(l_corridor, sys.stdout))
+        # print(yaml.dump(l_corridor, sys.stdout))
         
     policyYamlFile.close()  
     
@@ -106,7 +106,7 @@ def isSiteLevelPolicy(policy):
 
 def addAstraPolicyRules(c, cName, cPolicyRepoDirName):
     # Prepare the Output File
-    with open(config['files']['CORRIDOR_FILE_DIRECTORY']+'/'+cName+'.yaml', 'w') as corridorFile:
+    with open(config['files']['CORRIDOR_FILE_DIRECTORY']+'/networkpolicies-'+cName+'.yaml', 'w') as corridorFile:
         print("\nCorridor: ", corridorFile.name)
 
         for aFile in glob.glob(cPolicyRepoDirName + '/*.yaml'):
